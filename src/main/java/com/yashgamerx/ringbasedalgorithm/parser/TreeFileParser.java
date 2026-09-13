@@ -1,9 +1,10 @@
 package com.yashgamerx.ringbasedalgorithm.parser;
 
 import com.yashgamerx.ringbasedalgorithm.exceptions.UnknownParsingTechniqueException;
+import com.yashgamerx.ringbasedalgorithm.model.TreeNode;
 
 import java.io.File;
 
 public interface TreeFileParser {
-    Object parse(File file) throws UnknownParsingTechniqueException;
+    TreeNode parse(File file) throws UnknownParsingTechniqueException;
 }
