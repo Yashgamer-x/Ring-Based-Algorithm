@@ -16,7 +16,7 @@ public class RingFileParser implements TreeFileParser {
     private final HashMap<Integer, TreeNode> nodeMap = new HashMap<>();
 
     @Override
-    public TreeNode parse(File file) throws UnknownParsingTechniqueException {
+    public TreeNode parse(File file) throws UnknownParsingTechniqueException, IOException {
         try(var bufferedLines = new BufferedReader(Files.newBufferedReader(file.toPath()))) {
             var firstLine = bufferedLines.readLine();
             if(firstLine != null ){
@@ -26,9 +26,6 @@ public class RingFileParser implements TreeFileParser {
                     throw new UnknownParsingTechniqueException("The following reading technique has not been implemented yet: "+firstLine);
                 }
             }
-        } catch (IOException e) {
-            log.severe("Error while reading file: " + file.getName()
-                    + "\n Message: " + e.getMessage());
         }
         return nodeMap.get(1);
     }
