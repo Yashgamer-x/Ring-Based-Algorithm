@@ -4,6 +4,6 @@ import com.yashgamerx.ringbasedalgorithm.exceptions.UnknownParsingTechniqueExcep
 
 import java.io.File;
 
-public interface FileParser {
+public interface TreeFileParser {
     Object parse(File file) throws UnknownParsingTechniqueException;
 }

@@ -1,7 +1,7 @@
 package com.yashgamerx.ringbasedalgorithm.parser;
 
 import com.yashgamerx.ringbasedalgorithm.exceptions.UnknownParsingTechniqueException;
-import com.yashgamerx.ringbasedalgorithm.model.RingNode;
+import com.yashgamerx.ringbasedalgorithm.model.TreeNode;
 import lombok.extern.java.Log;
 
 import java.io.BufferedReader;
@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 @Log
-public class RingFileParser implements FileParser{
-    private final HashMap<Integer, RingNode> nodeMap = new HashMap<>();
+public class RingFileParser implements TreeFileParser {
+    private final HashMap<Integer, TreeNode> nodeMap = new HashMap<>();
 
     @Override
     public Object parse(File file) throws UnknownParsingTechniqueException {
@@ -50,15 +50,15 @@ public class RingFileParser implements FileParser{
 
 
     /// Creates a childNode based on provided child ID and links the parent to its child.
-    private static Function<Integer, RingNode> createChildNode(RingNode parentNode) {
+    private static Function<Integer, TreeNode> createChildNode(TreeNode parentTreeNode) {
         return childId -> {
             // Create a new node with the child ID
-            var node = new RingNode();
+            var node = new TreeNode();
             node.setValue(childId);
 
             // Link the parent node to the child node.
             // Or, add the child node to the parent node.
-            parentNode.getChildren().add(node);
+            parentTreeNode.getChildren().add(node);
 
             return node;
         };
@@ -66,9 +66,9 @@ public class RingFileParser implements FileParser{
 
     /// Creates the Ring node for the ParentId who does not have a parent.
     /// Usually it is the root node, and is suppose to be root node only.
-    private static Function<Integer, RingNode> createRingNodeFromParentId() {
+    private static Function<Integer, TreeNode> createRingNodeFromParentId() {
         return parentId -> {
-            var node = new RingNode();
+            var node = new TreeNode();
             node.setValue(parentId);
             return node;
         };

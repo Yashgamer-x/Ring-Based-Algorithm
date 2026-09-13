@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-public class RingNode {
+public class TreeNode {
     private int value;
-    private final List<RingNode> children = new ArrayList<>();
+    private final List<TreeNode> children = new ArrayList<>();
 }
