@@ -32,6 +32,7 @@ public class RingFileParser implements FileParser{
         }
     }
 
+    /// Reads the lines, separates the parent and child ID, and then links the parent to its children
     private void readNumberedFile(BufferedReader bufferedLines) throws IOException {
         String line;
         while((line = bufferedLines.readLine()) != null) {
