@@ -16,7 +16,7 @@ public class RingFileParser implements FileParser{
     private final HashMap<Integer, RingNode> nodeMap = new HashMap<>();
 
     @Override
-    public void parse(File file) throws UnknownParsingTechniqueException {
+    public Object parse(File file) throws UnknownParsingTechniqueException {
         try(var bufferedLines = new BufferedReader(Files.newBufferedReader(file.toPath()))) {
             var firstLine = bufferedLines.readLine();
             if(firstLine != null ){
@@ -30,6 +30,7 @@ public class RingFileParser implements FileParser{
             log.severe("Error while reading file: " + file.getName()
                     + "\n Message: " + e.getMessage());
         }
+        return nodeMap.get(1);
     }
 
     /// Reads the lines, separates the parent and child ID, and then links the parent to its children
