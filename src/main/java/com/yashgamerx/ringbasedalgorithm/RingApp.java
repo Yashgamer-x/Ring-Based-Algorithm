@@ -15,6 +15,7 @@ public class RingApp extends Application {
     public void start(Stage stage) throws IOException, UnknownParsingTechniqueException {
         var inputFile = new File("src/main/resources/1k_Tree.txt");
         RingGraphView view = new RingGraphView(inputFile);
+        view.compute();
         Scene scene = new Scene(view, 320, 240);
         stage.setTitle("Ring Graph");
         stage.setScene(scene);

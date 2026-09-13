@@ -19,4 +19,7 @@ public class RingGraphView extends Pane {
         super.setPrefSize(VIRTUAL_CANVAS_SIZE, VIRTUAL_CANVAS_SIZE);
         rootNode = parser.parse(file);
     }
+
+    public void compute() {
+    }
 }
