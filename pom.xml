@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.yashgamerx.ringbasedalgorithm/com.yashgamerx.ringbasedalgorithm.HelloApplication
+                                com.yashgamerx.ringbasedalgorithm/com.yashgamerx.ringbasedalgorithm.RingApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
