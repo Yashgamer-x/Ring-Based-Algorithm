@@ -6,6 +6,7 @@ import com.yashgamerx.ringbasedalgorithm.parser.RingFileParser;
 import com.yashgamerx.ringbasedalgorithm.parser.TreeFileParser;
 import javafx.scene.layout.Pane;
 import java.io.File;
+import java.io.IOException;
 
 public class RingGraphView extends Pane {
 
@@ -13,7 +14,7 @@ public class RingGraphView extends Pane {
     private final TreeFileParser parser = new RingFileParser();
     private TreeNode rootNode;
 
-    public RingGraphView(File file) throws UnknownParsingTechniqueException {
+    public RingGraphView(File file) throws UnknownParsingTechniqueException, IOException {
         super();
         super.setPrefSize(VIRTUAL_CANVAS_SIZE, VIRTUAL_CANVAS_SIZE);
         rootNode = parser.parse(file);
