@@ -2,7 +2,6 @@ package com.yashgamerx.ringbasedalgorithm.parser;
 
 import com.yashgamerx.ringbasedalgorithm.exceptions.UnknownParsingTechniqueException;
 import com.yashgamerx.ringbasedalgorithm.model.RingTreeNode;
-import com.yashgamerx.ringbasedalgorithm.model.TreeNode;
 import lombok.extern.java.Log;
 
 import java.io.BufferedReader;
@@ -13,10 +12,10 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 @Log
-public class RingFileParser implements TreeFileParser<RingTreeNode> {
+public class RingFileParser {
     private final HashMap<Integer, RingTreeNode> nodeMap = new HashMap<>();
 
-    @Override
+
     public RingTreeNode parse(File file) throws UnknownParsingTechniqueException, IOException {
         try(var bufferedLines = new BufferedReader(Files.newBufferedReader(file.toPath()))) {
             var firstLine = bufferedLines.readLine();
@@ -48,7 +47,7 @@ public class RingFileParser implements TreeFileParser<RingTreeNode> {
 
 
     /// Creates a childNode based on provided child ID and links the parent to its child.
-    private static Function<Integer, RingTreeNode> createChildNode(TreeNode parentTreeNode) {
+    private static Function<Integer, RingTreeNode> createChildNode(RingTreeNode parentTreeNode) {
         return childId -> {
             // Create a new node with the child ID
             var node = new RingTreeNode();

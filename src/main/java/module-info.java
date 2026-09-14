@@ -7,4 +7,6 @@ module com.yashgamerx.ringbasedalgorithm {
 
     opens com.yashgamerx.ringbasedalgorithm to javafx.fxml;
     exports com.yashgamerx.ringbasedalgorithm;
+    exports com.yashgamerx.ringbasedalgorithm.model;
+    exports com.yashgamerx.ringbasedalgorithm.exceptions;
 }
