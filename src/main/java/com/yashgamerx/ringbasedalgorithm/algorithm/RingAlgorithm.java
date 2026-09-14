@@ -6,6 +6,7 @@ public class RingAlgorithm {
 
     public void processNode(RingTreeNode rootNode) {
         preComputeRoot(rootNode);
+        computeRoot(rootNode);
     }
 
     private void preComputeRoot(RingTreeNode rootNode) {
@@ -21,8 +22,11 @@ public class RingAlgorithm {
 
         // If the maxRadiusNode is present, compute the parent radius and set it
         maxRadiusNode.ifPresent(node -> {
-            var parentRadius = parentToChildRequiredRadius(node.getRadius(), stepAngle);
-            rootNode.setRadius(parentRadius*2);
+            var parentToChildRequiredRadius = parentToChildRequiredRadius(node.getRadius(), stepAngle);
+
+            // Set the radius based on the clearance (that takes you to the center of the child)
+            // + the radius of the child so that we cover the whole child circle
+            rootNode.setRadius(parentToChildRequiredRadius+node.getRadius());
         });
     }
 
@@ -36,10 +40,27 @@ public class RingAlgorithm {
             return;
         }
 
+        node.getChildren().forEach(this::preCompute);
+
         // All the children + 1 for the parent node too because the
         var childrenCount = node.getChildren().size() + 1;
+        var stepAngle = step360AngleBasedOnChildren(childrenCount);
+        var maxRadiusNode = node.getChildren().stream()
+                .max(this::compareNodes);
 
+        // If the maxRadiusNode is present, compute the parent radius and set it
+        maxRadiusNode.ifPresent(ringTreeNode -> {
+            var parentToChildRequiredRadius = parentToChildRequiredRadius(ringTreeNode.getRadius(), stepAngle);
+
+            // Set the radius based on the clearance (that takes you to the center of the child)
+            // + the radius of the child so that we cover the whole child circle
+            ringTreeNode.setRadius(parentToChildRequiredRadius+ringTreeNode.getRadius());
+        });
     }
+
+    private void computeRoot(RingTreeNode rootNode) {
+    }
+
 
     private void setDefaultValues(RingTreeNode node){
         node.setRadius(RingTreeNode.NODE_RADIUS);
