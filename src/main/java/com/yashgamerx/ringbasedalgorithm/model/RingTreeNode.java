@@ -13,8 +13,7 @@ public class RingTreeNode {
 
     private double layoutX;
     private double layoutY;
-    private double width;
-    private double height;
+    private double radius;
 
     private int value;
     private final List<RingTreeNode> children = new ArrayList<>();
