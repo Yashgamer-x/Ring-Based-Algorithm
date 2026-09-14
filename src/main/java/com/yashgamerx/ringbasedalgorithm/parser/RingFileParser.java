@@ -1,6 +1,7 @@
 package com.yashgamerx.ringbasedalgorithm.parser;
 
 import com.yashgamerx.ringbasedalgorithm.exceptions.UnknownParsingTechniqueException;
+import com.yashgamerx.ringbasedalgorithm.model.RingTreeNode;
 import com.yashgamerx.ringbasedalgorithm.model.TreeNode;
 import lombok.extern.java.Log;
 
@@ -12,11 +13,11 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 @Log
-public class RingFileParser implements TreeFileParser {
-    private final HashMap<Integer, TreeNode> nodeMap = new HashMap<>();
+public class RingFileParser implements TreeFileParser<RingTreeNode> {
+    private final HashMap<Integer, RingTreeNode> nodeMap = new HashMap<>();
 
     @Override
-    public TreeNode parse(File file) throws UnknownParsingTechniqueException, IOException {
+    public RingTreeNode parse(File file) throws UnknownParsingTechniqueException, IOException {
         try(var bufferedLines = new BufferedReader(Files.newBufferedReader(file.toPath()))) {
             var firstLine = bufferedLines.readLine();
             if(firstLine != null ){
@@ -47,10 +48,10 @@ public class RingFileParser implements TreeFileParser {
 
 
     /// Creates a childNode based on provided child ID and links the parent to its child.
-    private static Function<Integer, TreeNode> createChildNode(TreeNode parentTreeNode) {
+    private static Function<Integer, RingTreeNode> createChildNode(TreeNode parentTreeNode) {
         return childId -> {
             // Create a new node with the child ID
-            var node = new TreeNode();
+            var node = new RingTreeNode();
             node.setValue(childId);
 
             // Link the parent node to the child node.
@@ -63,9 +64,9 @@ public class RingFileParser implements TreeFileParser {
 
     /// Creates the Ring node for the ParentId who does not have a parent.
     /// Usually it is the root node, and is suppose to be root node only.
-    private static Function<Integer, TreeNode> createRingNodeFromParentId() {
+    private static Function<Integer, RingTreeNode> createRingNodeFromParentId() {
         return parentId -> {
-            var node = new TreeNode();
+            var node = new RingTreeNode();
             node.setValue(parentId);
             return node;
         };

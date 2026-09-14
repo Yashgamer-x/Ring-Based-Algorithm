@@ -6,6 +6,6 @@ import com.yashgamerx.ringbasedalgorithm.model.TreeNode;
 import java.io.File;
 import java.io.IOException;
 
-public interface TreeFileParser {
-    TreeNode parse(File file) throws UnknownParsingTechniqueException, IOException;
+public interface TreeFileParser<T extends TreeNode> {
+    T parse(File file) throws UnknownParsingTechniqueException, IOException;
 }

@@ -16,6 +16,7 @@ public class RingApp extends Application {
         var inputFile = new File("src/main/resources/1k_Tree.txt");
         RingGraphView view = new RingGraphView(inputFile);
         view.compute();
+        view.draw();
         Scene scene = new Scene(view, 320, 240);
         stage.setTitle("Ring Graph");
         stage.setScene(scene);
