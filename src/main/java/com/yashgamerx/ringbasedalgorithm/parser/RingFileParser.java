@@ -50,14 +50,15 @@ public class RingFileParser {
     private static Function<Integer, RingTreeNode> createChildNode(RingTreeNode parentTreeNode) {
         return childId -> {
             // Create a new node with the child ID
-            var node = new RingTreeNode();
-            node.setValue(childId);
+            var childNode = new RingTreeNode();
+            childNode.setValue(childId);
 
             // Link the parent node to the child node.
             // Or, add the child node to the parent node.
-            parentTreeNode.getChildren().add(node);
+            parentTreeNode.getChildren().add(childNode);
+            childNode.setParent(parentTreeNode);
 
-            return node;
+            return childNode;
         };
     }
 

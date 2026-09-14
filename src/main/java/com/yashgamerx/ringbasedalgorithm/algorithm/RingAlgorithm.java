@@ -59,6 +59,11 @@ public class RingAlgorithm {
     }
 
     private void computeRoot(RingTreeNode rootNode) {
+
+    }
+
+    private void computeNode(RingTreeNode node) {
+
     }
 
 
