@@ -22,7 +22,7 @@ public class RingAlgorithm {
         // If the maxRadiusNode is present, compute the parent radius and set it
         maxRadiusNode.ifPresent(node -> {
             var parentRadius = parentToChildRequiredRadius(node.getRadius(), stepAngle);
-            rootNode.setRadius(parentRadius);
+            rootNode.setRadius(parentRadius*2);
         });
     }
 
