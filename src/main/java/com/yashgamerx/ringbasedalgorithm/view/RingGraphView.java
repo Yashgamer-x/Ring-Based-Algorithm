@@ -24,7 +24,7 @@ public class RingGraphView extends Pane {
     }
 
     public void compute() {
-        new RingAlgorithm().compute(rootNode);
+        new RingAlgorithm().processNode(rootNode);
     }
 
     public void draw() {
