@@ -1,5 +1,6 @@
 package com.yashgamerx.ringbasedalgorithm.view;
 
+import com.yashgamerx.ringbasedalgorithm.algorithm.RingAlgorithm;
 import com.yashgamerx.ringbasedalgorithm.exceptions.UnknownParsingTechniqueException;
 import com.yashgamerx.ringbasedalgorithm.model.RingTreeNode;
 import com.yashgamerx.ringbasedalgorithm.parser.RingFileParser;
@@ -23,8 +24,7 @@ public class RingGraphView extends Pane {
     }
 
     public void compute() {
-        rootNode.setLayoutX(10);
-        rootNode.setLayoutY(10);
+        new RingAlgorithm().compute(rootNode);
     }
 
     public void draw() {
