@@ -13,6 +13,7 @@ public class RingTreeNode {
 
     private double layoutX;
     private double layoutY;
+    private double theta;
     private double radius;
 
     private int id;
@@ -27,6 +28,13 @@ public class RingTreeNode {
     }
 
     public void translateFromParent(double r, double theta) {
+        var x = r * Math.cos(theta);
+        var y = r * Math.sin(theta);
+        this.layoutX = parent.layoutX + x;
+        this.layoutY = parent.layoutY + y;
+    }
+
+    public void translateFromParentBasedOnImplicitlyProvidedTheta(double r) {
         var x = r * Math.cos(theta);
         var y = r * Math.sin(theta);
         this.layoutX = parent.layoutX + x;

@@ -11,14 +11,19 @@ public class RingAlgorithm {
 
     private void preComputeRoot(RingTreeNode rootNode) {
         // Preprocess all the children first
-        rootNode.getChildren().forEach(this::preCompute);
+        var childrenCount = rootNode.getChildren().size();
+        var stepAngle = step360AngleBasedOnChildren(childrenCount);
+        var currentAngle = 0.0;
+        for (var node: rootNode.getChildren()) {
+            node.setTheta(currentAngle);
+            preCompute(node);
+            currentAngle+=stepAngle;
+        }
 
         // Get children count, maximum Radius child node, and the step angle to calculate the safe distance
         // required from the parent to the child to avoid collision
-        var childrenCount = rootNode.getChildren().size();
         var maxRadiusNode = rootNode.getChildren().stream()
                 .max(this::compareNodes);
-        var stepAngle = step360AngleBasedOnChildren(childrenCount);
 
         // If the maxRadiusNode is present, compute the parent radius and set it
         maxRadiusNode.ifPresent(node -> {
@@ -40,11 +45,16 @@ public class RingAlgorithm {
             return;
         }
 
-        node.getChildren().forEach(this::preCompute);
-
-        // All the children + 1 for the parent node too because the
         var childrenCount = node.getChildren().size() + 1;
         var stepAngle = step360AngleBasedOnChildren(childrenCount);
+        var currentAngle = node.getTheta() - Math.PI + stepAngle;
+        for (var node1 : node.getChildren()) {
+            node1.setTheta(currentAngle);
+            preCompute(node1);
+            currentAngle += stepAngle;
+        }
+
+        // All the children + 1 for the parent node too because the
         var maxRadiusNode = node.getChildren().stream()
                 .max(this::compareNodes);
 
@@ -63,19 +73,19 @@ public class RingAlgorithm {
         rootNode.setLayoutY(rootNode.getRadius());
 
         for (int i = 0; i < rootNode.getChildren().size(); i++) {
-            computeNode(rootNode.getChildren().get(i), i);
+            computeNode(rootNode.getChildren().get(i));
         }
     }
 
-    private void computeNode(RingTreeNode node, int index) {
+    private void computeNode(RingTreeNode node) {
         // Gets the children count of the parent node
         var childrenCount = node.getParent().getChildren().size() + 1;
         var stepAngle = step360AngleBasedOnChildren(childrenCount);
         var parentToChildRequiredRadius = parentToChildRequiredRadius(node.getRadius(), stepAngle);
-        node.translateFromParent(parentToChildRequiredRadius, stepAngle*index);
+        node.translateFromParentBasedOnImplicitlyProvidedTheta(parentToChildRequiredRadius);
 
         for (int i = 0; i < node.getChildren().size(); i++) {
-            computeNode(node.getChildren().get(i), i);
+            computeNode(node.getChildren().get(i));
         }
     }
 
