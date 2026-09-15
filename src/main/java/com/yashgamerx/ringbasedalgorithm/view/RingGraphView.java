@@ -7,6 +7,8 @@ import com.yashgamerx.ringbasedalgorithm.parser.RingFileParser;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -32,7 +34,7 @@ public class RingGraphView extends Pane {
         rootNode.getChildren().forEach(this::drawChildren);
     }
 
-    public void drawCircle(RingTreeNode node) {
+    private void drawCircle(RingTreeNode node) {
         var circle = new Circle(
                 node.getLayoutX(),
                 node.getLayoutY(),
@@ -43,8 +45,22 @@ public class RingGraphView extends Pane {
         getChildren().add(circle);
     }
 
+    private void drawLine(RingTreeNode node) {
+        var parent = node.getParent();
+        if (parent != null) {
+            var line = new Line(
+                    parent.getLayoutX(),
+                    parent.getLayoutY(),
+                    node.getLayoutX(),
+                    node.getLayoutY()
+            );
+            getChildren().add(line);
+        }
+    }
+
     private void drawChildren(RingTreeNode ringTreeNode) {
         drawCircle(ringTreeNode);
+        drawLine(ringTreeNode);
         ringTreeNode.getChildren().forEach(this::drawChildren);
     }
 }
