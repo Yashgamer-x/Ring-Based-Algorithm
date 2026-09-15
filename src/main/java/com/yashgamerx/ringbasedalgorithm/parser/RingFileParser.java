@@ -51,7 +51,7 @@ public class RingFileParser {
         return childId -> {
             // Create a new node with the child ID
             var childNode = new RingTreeNode();
-            childNode.setValue(childId);
+            childNode.setId(childId);
 
             // Link the parent node to the child node.
             // Or, add the child node to the parent node.
@@ -67,7 +67,7 @@ public class RingFileParser {
     private static Function<Integer, RingTreeNode> createRingNodeFromParentId() {
         return parentId -> {
             var node = new RingTreeNode();
-            node.setValue(parentId);
+            node.setId(parentId);
             return node;
         };
     }

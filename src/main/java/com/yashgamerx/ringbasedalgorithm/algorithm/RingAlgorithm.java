@@ -54,16 +54,29 @@ public class RingAlgorithm {
 
             // Set the radius based on the clearance (that takes you to the center of the child)
             // + the radius of the child so that we cover the whole child circle
-            ringTreeNode.setRadius(parentToChildRequiredRadius+ringTreeNode.getRadius());
+            node.setRadius(parentToChildRequiredRadius+ringTreeNode.getRadius());
         });
     }
 
     private void computeRoot(RingTreeNode rootNode) {
+        rootNode.setLayoutX(rootNode.getRadius());
+        rootNode.setLayoutY(rootNode.getRadius());
 
+        for (int i = 0; i < rootNode.getChildren().size(); i++) {
+            computeNode(rootNode.getChildren().get(i), i);
+        }
     }
 
-    private void computeNode(RingTreeNode node) {
+    private void computeNode(RingTreeNode node, int index) {
+        // Gets the children count of the parent node
+        var childrenCount = node.getParent().getChildren().size() + 1;
+        var stepAngle = step360AngleBasedOnChildren(childrenCount);
+        var parentToChildRequiredRadius = parentToChildRequiredRadius(node.getRadius(), stepAngle);
+        node.translateFromParent(parentToChildRequiredRadius, stepAngle*index);
 
+        for (int i = 0; i < node.getChildren().size(); i++) {
+            computeNode(node.getChildren().get(i), i);
+        }
     }
 
 

@@ -15,7 +15,7 @@ public class RingTreeNode {
     private double layoutY;
     private double radius;
 
-    private int value;
+    private int id;
     private RingTreeNode parent;
     private final List<RingTreeNode> children = new ArrayList<>();
 
